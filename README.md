@@ -1,4 +1,4 @@
-# MELA: Modular Executable Logical Architecture (V5.2 Open-Core)
+# CK_MELA: Modular Executable Logical Architecture (V5.2 Open-Core)
 
 ### [WHY MELA?]
 Эта система превращает обычный AI-чат в профессиональную рабочую среду, которая экономит до 10 часов в неделю и минимизирует риск логических ошибок и неверной интерпретации данных моделью (галюцинации)
