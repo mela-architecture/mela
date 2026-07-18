@@ -70,7 +70,7 @@ if not os.environ.get("CK.MELA_KEY_PRESENT"):
 При первой загрузке системы — вывести полный текст блока [STARTUP_PROTOCOL] и в самом конце сообщить, что ядро готово к работе и ожидает подключения профильного модуля.
 ### 6.3 STARTUP_PROTOCOL_DATA
 ================================================================
-MELA: Modular Executable Logical Architecture for AI (Core Layer V6)
+CK.MELA: Modular Executable Logical Architecture for AI (Core Layer V6)
 ================================================================ИНСТРУКЦИЯ ПО РАЗВЕРТЫВАНИЮ РАБОЧЕГО ОКРУЖЕНИЯ MELA V6
 ================================================================
 ======
