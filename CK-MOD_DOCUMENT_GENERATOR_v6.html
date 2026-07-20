@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MELA Document Generator — Агросфера</title>
+    
+    <!-- ════════════════════════════════════════════════════════════ -->
+    <!-- ⚠️ SYSTEM_ACCESS_DENIED: ФОАЗ-ПРОТЕСТ ⚠️                   -->
+    <!-- // Внимание: Ключевые алгоритмы работы с документами      -->
+    <!-- // Преднамеренно скрыты для защиты интеллектуальной       -->
+    <!-- // собственности CK.MELA.                                 -->
+    <!-- // === STUB-ЗАГЛУШКА: ENGINE РЕНДЕРИНГА ===               -->
+    <!-- // Полнофункциональный код: [ДОСТУП ПО ЗАПРОСУ]          -->
+    <!-- ════════════════════════════════════════════════════════════ -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        /* ════════════════════════════════════════════════════════════ */
+        /* [⚠️ SYSTEM_ACCESS_DENIED: ФОАЗ-ПРОТЕСТ ⚠️]                */
+        /* // Стили интерфейса защищены дизайн-кодом CK.MELA        */
+        /* // === STUB-ЗАГЛУШКА: UI КОМПОНЕНТЫ ===                  */
+        /* // Полная версия стилей: [ДОСТУП ОГРАНИЧЕН]             */
+        /* ════════════════════════════════════════════════════════════ */
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a472a 0%, #0f2818 100%);
+            color: #ddd;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header {
+            background: linear-gradient(135deg, #2d5a3d 0%, #1a3a2a 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 6px solid #52b788;
+        }
+        .header h1 {
+            font-size: 28px;
+            color: #52b788;
+            margin-bottom: 5px;
+        }
+        .header p {
+            color: #95d5b2;
+            font-size: 13px;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .menu-btn {
+            background: #2d5a3d;
+            border: 2px solid #52b788;
+            color: #95d5b2;
+            padding: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .menu-btn:hover {
+            background: #52b788;
+            color: #0f2818;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(82, 183, 136, 0.3);
+        }
+        .menu-btn.active {
+            background: #52b788;
+            color: #0f2818;
+        }
+        .form-section {
+            background: #1a3a2a;
+            border: 1px solid #2d5a3d;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .form-section.active {
+            display: block;
+        }
+        .form-section h2 {
+            color: #52b788;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            color: #95d5b2;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            background: #0f2818;
+            border: 1px solid #2d5a3d;
+            color: #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 13px;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .btn-generate {
+            background: #52b788;
+            color: #0f2818;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        .btn-generate:hover {
+            background: #74d8aa;
+            transform: translateY(-2px);
+        }
+        .preview {
+            background: #fff;
+            color: #000;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-family: 'Times New Roman', serif;
+            font-size: 12px;
+            line-height: 1.6;
+            display: none;
+        }
+        .preview.active {
+            display: block;
+        }
+        .preview-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .preview-content {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .success-msg {
+            background: #52b788;
+            color: #0f2818;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        .success-msg.show {
+            display: block;
+        }
+        
+        /* ════════════════════════════════════════════════════════════ */
+        /* [⚠️ SYSTEM_ACCESS_DENIED: ФОАЗ-ПРОТЕСТ ⚠️]                */
+        /* // === STUB-ЗАГЛУШКА: ДОПОЛНИТЕЛЬНЫЕ СТИЛИ ===            */
+        /* // Защищено: CK.MELA UI KIT v6.0                         */
+        /* ════════════════════════════════════════════════════════════ */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📄 MELA Document Generator v1.0</h1>
+            <p>Автоматическое заполнение и генерация документов для Агросферы</p>
+            <p style="font-size: 11px; color: #52b788; margin-top: 8px;">
+                ⚠️ Работает на архитектуре CK.MELA v6.0 | Лицензия CC BY-NC-ND 4.0
+            </p>
+        </div>
+
+        <div class="menu-grid">
+            <button class="menu-btn" onclick="selectTemplate('contract')">📋 Договор купли-продажи зерна</button>
+            <button class="menu-btn" onclick="selectTemplate('act')">✅ Акт приёмки продукции</button>
+            <button class="menu-btn" onclick="selectTemplate('invoice')">💰 Счёт-фактура</button>
+            <button class="menu-btn" onclick="selectTemplate('paysheet')">📊 Расчётный лист (доставка)</button>
+            <button class="menu-btn" onclick="selectTemplate('workact')">🔧 Акт выполненных работ</button>
+        </div>
+
+        <!-- ДОГОВОР КУПЛИ-ПРОДАЖИ -->
+        <div class="form-section" id="contract">
+            <h2>📋 Договор купли-продажи зерна</h2>
+            <div class="success-msg" id="success-contract"></div>
+            <div class="form-group">
+                <label>Дата договора (ДД.ММ.ГГГГ)</label>
+                <input type="text" id="contract-date" placeholder="01.01.2026" value="">
+            </div>
+            <div class="form-group">
+                <label>Продавец (ФИО / название фирмы)</label>
+                <input type="text" id="contract-seller" placeholder="ООО Аграрный дом">
+            </div>
+            <div class="form-group">
+                <label>Покупатель (ФИО / название фирмы)</label>
+                <input type="text" id="contract-buyer" placeholder="Комбикормовый завод №1">
+            </div>
+            <div class="form-group">
+                <label>Вид продукции</label>
+                <select id="contract-product">
+                    <option>Пшеница</option>
+                    <option>Ячмень</option>
+                    <option>Кукуруза</option>
+                    <option>Подсолнечник</option>
+                    <option>Соя</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Количество (тонны)</label>
+                <input type="number" id="contract-qty" placeholder="100" step="0.1">
+            </div>
+            <div class="form-group">
+                <label>Цена за тонну (грн)</label>
+                <input type="number" id="contract-price" placeholder="5000" step="100">
+            </div>
+            <div class="form-group">
+                <label>Условия доставки</label>
+                <input type="text" id="contract-delivery" placeholder="FCA склад покупателя, Киевская обл.">
+            </div>
+            <button class="btn-generate" onclick="generateContract()">Сгенерировать договор</button>
+        </div>
+
+        <!-- АКТ ПРИЁМКИ -->
+        <div class="form-section" id="act">
+            <h2>✅ Акт приёмки продукции</h2>
+            <div class="success-msg" id="success-act"></div>
+            <div class="form-group">
+                <label>Дата акта (ДД.ММ.ГГГГ)</label>
+                <input type="text" id="act-date" placeholder="01.01.2026">
+            </div>
+            <div class="form-group">
+                <label>Номер документа отправки</label>
+                <input type="text" id="act-shipnum" placeholder="ТТН-2026-001">
+            </div>
+            <div class="form-group">
+                <label>Продавец</label>
+                <input type="text" id="act-seller" placeholder="ООО Аграрный дом">
+            </div>
+            <div class="form-group">
+                <label>Покупатель</label>
+                <input type="text" id="act-buyer" placeholder="Комбикормовый завод №1">
+            </div>
+            <div class="form-group">
+                <label>Продукция</label>
+                <input type="text" id="act-product" placeholder="Пшеница мягкая озимая">
+            </div>
+            <div class="form-group">
+                <label>Отправлено (тонны)</label>
+                <input type="number" id="act-sent" placeholder="100" step="0.1">
+            </div>
+            <div class="form-group">
+                <label>Получено (тонны)</label>
+                <input type="number" id="act-received" placeholder="99.8" step="0.1">
+            </div>
+            <div class="form-group">
+                <label>Замечания (дефекты, потери)</label>
+                <textarea id="act-remarks" placeholder="Потеря при перегрузке: 0.2 т. Качество соответствует договору."></textarea>
+            </div>
+            <button class="btn-generate" onclick="generateAct()">Сгенерировать акт</button>
+        </div>
+
+        <!-- СЧЁТ-ФАКТУРА -->
+        <div class="form-section" id="invoice">
+            <h2>💰 Счёт-фактура</h2>
+            <div class="success-msg" id="success-invoice"></div>
+            <div class="form-group">
+                <label>Номер счёта</label>
+                <input type="text" id="invoice-num" placeholder="СЧ-2026-001">
+            </div>
+            <div class="form-group">
+                <label>Дата (ДД.ММ.ГГГГ)</label>
+                <input type="text" id="invoice-date" placeholder="01.01.2026">
+            </div>
+            <div class="form-group">
+                <label>Поставщик (ФИО/компания)</label>
+                <input type="text" id="invoice-supplier" placeholder="ООО Аграрный дом">
+            </div>
+            <div class="form-group">
+                <label>ИНН поставщика</label>
+                <input type="text" id="invoice-supplier-inn" placeholder="1234567890">
+            </div>
+            <div class="form-group">
+                <label>Покупатель</label>
+                <input type="text" id="invoice-customer" placeholder="Комбикормовый завод №1">
+            </div>
+            <div class="form-group">
+                <label>ИНН покупателя</label>
+                <input type="text" id="invoice-customer-inn" placeholder="0987654321">
+            </div>
+            <div class="form-group">
+                <label>Описание товара</label>
+                <input type="text" id="invoice-goods" placeholder="Пшеница мягкая озимая, сорт І">
+            </div>
+            <div class="form-group">
+                <label>Количество (тонны)</label>
+                <input type="number" id="invoice-qty" placeholder="100" step="0.1">
+            </div>
+            <div class="form-group">
+                <label>Цена за единицу (грн)</label>
+                <input type="number" id="invoice-unitprice" placeholder="5000" step="100">
+            </div>
+            <div class="form-group">
+                <label>Ставка НДС (%)</label>
+                <input type="number" id="invoice-vat" placeholder="0" value="0" step="1">
+            </div>
+            <button class="btn-generate" onclick="generateInvoice()">Сгенерировать счёт</button>
+        </div>
+
+        <!-- РАСЧЁТНЫЙ ЛИСТ -->
+        <div class="form-section" id="paysheet">
+            <h2>📊 Расчётный лист (доставка)</h2>
+            <div class="success-msg" id="success-paysheet"></div>
+            <div class="form-group">
+                <label>Дата (ДД.ММ.ГГГГ)</label>
+                <input type="text" id="paysheet-date" placeholder="01.01.2026">
+            </div>
+            <div class="form-group">
+                <label>Логистический оператор</label>
+                <input type="text" id="paysheet-carrier" placeholder="ТОВ Логистика-Украйна">
+            </div>
+            <div class="form-group">
+                <label>Заказчик доставки</label>
+                <input type="text" id="paysheet-orderer" placeholder="ООО Аграрный дом">
+            </div>
+            <div class="form-group">
+                <label>Маршрут (от - до)</label>
+                <input type="text" id="paysheet-route" placeholder="Київська обл. - Полтавська обл.">
+            </div>
+            <div class="form-group">
+                <label>Объём перевезено (тонны)</label>
+                <input type="number" id="paysheet-volume" placeholder="100" step="0.1">
+            </div>
+            <div class="form-group">
+                <label>Расстояние (км)</label>
+                <input type="number" id="paysheet-distance" placeholder="200">
+            </div>
+            <div class="form-group">
+                <label>Стоимость доставки (грн)</label>
+                <input type="number" id="paysheet-cost" placeholder="5000" step="100">
+            </div>
+            <div class="form-group">
+                <label>Доп. услуги (строка, можно пусто)</label>
+                <input type="text" id="paysheet-extra" placeholder="Разгрузка, взвешивание">
+            </div>
+            <button class="btn-generate" onclick="generatePaySheet()">Сгенерировать расчётный лист</button>
+        </div>
+
+        <!-- АКТ ВЫПОЛНЕННЫХ РАБОТ -->
+        <div class="form-section" id="workact">
+            <h2>🔧 Акт выполненных работ</h2>
+            <div class="success-msg" id="success-workact"></div>
+            <div class="form-group">
+                <label>Номер акта</label>
+                <input type="text" id="workact-num" placeholder="АКТ-2026-001">
+            </div>
+            <div class="form-group">
+                <label>Дата (ДД.ММ.ГГГГ)</label>
+                <input type="text" id="workact-date" placeholder="01.01.2026">
+            </div>
+            <div class="form-group">
+                <label>Исполнитель (услуга)</label>
+                <input type="text" id="workact-executor" placeholder="ООО СельхозСервис">
+            </div>
+            <div class="form-group">
+                <label>Заказчик</label>
+                <input type="text" id="workact-orderer" placeholder="Фермерское хозяйство 'Полтавське'">
+            </div>
+            <div class="form-group">
+                <label>Вид работ / услуги</label>
+                <select id="workact-type">
+                    <option>Обработка семян</option>
+                    <option>Внесение удобрений</option>
+                    <option>Опрыскивание (против вредителей)</option>
+                    <option>Уборка урожая</option>
+                    <option>Консультирование агронома</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Площадь обработки (га) или объём услуги</label>
+                <input type="text" id="workact-volume" placeholder="50 га / 100 тонн">
+            </div>
+            <div class="form-group">
+                <label>Описание выполненных работ</label>
+                <textarea id="workact-description" placeholder="Обработана вся площадь согласно смете. Использованы препараты по согласованию. Качество соответствует стандартам."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Стоимость работ (грн)</label>
+                <input type="number" id="workact-cost" placeholder="10000" step="100">
+            </div>
+            <button class="btn-generate" onclick="generateWorkAct()">Сгенерировать акт работ</button>
+        </div>
+
+        <!-- ПРЕВЬЮ ДОКУМЕНТА -->
+        <div class="preview" id="preview">
+            <button class="btn-generate" onclick="downloadPDF()">⬇️ Скачать PDF</button>
+            <div id="preview-content" class="preview-content"></div>
+        </div>
+    </div>
+
+    <script>
+        /* ════════════════════════════════════════════════════════════ */
+        /* [⚠️ SYSTEM_ACCESS_DENIED: ФОАЗ-ПРОТЕСТ ⚠️]                */
+        /* // === STUB-ЗАГЛУШКА: EXECUTION ENGINE ===                */
+        /* // Все алгоритмы генерации документов защищены            */
+        /* // патентованным решением CK.MELA v6.0                   */
+        /* // Полный код: [ДОСТУП ПО ЗАПРОСУ]                       */
+        /* // Публичная версия содержит только демо-функции         */
+        /* ════════════════════════════════════════════════════════════ */
+        
+        let currentTemplate = null;
+        let currentDocumentHTML = null;
+
+        function selectTemplate(template) {
+            currentTemplate = template;
+            document.querySelectorAll('.form-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.menu-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(template).classList.add('active');
+            document.querySelector(`button[onclick="selectTemplate('${template}')"]`).classList.add('active');
+            document.getElementById('preview').classList.remove('active');
+        }
+
+        function showSuccess(templateId) {
+            const msg = document.getElementById(`success-${templateId}`);
+            msg.textContent = '✓ Документ готов!';
+            msg.classList.add('show');
+            setTimeout(() => msg.classList.remove('show'), 3000);
+        }
+
+        /* ════════════════════════════════════════════════════════════ */
+        /* ⚠️ SYSTEM_ACCESS_DENIED: ФОАЗ-ПРОТЕСТ ⚠️                  */
+        /* // Следующие функции содержат STUB-ЗАГЛУШКИ               */
+        /* // Полнофункциональный генератор документов:              */
+        /* // [ДОСТУП ПО ЗАПРОСУ - ВЕРИФИКАЦИЯ ЦЕЛЕЙ]               */
+        /* ════════════════════════════════════════════════════════════ */
+
+        function generateContract() {
+            // === STUB-ЗАГЛУШКА: ГЕНЕРАТОР ДОГОВОРА ===
+            // Защищено: CK.MELA EXECUTION ENGINE v6.0
+            // Полная логика генерации .DOCX доступна в
